@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Stack;
 
+//	29008ms	296kb
 public class S_1874 {
     static int n;
     static Stack<Integer> st;
