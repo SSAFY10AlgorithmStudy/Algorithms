@@ -16,7 +16,6 @@ public class 미로탐색 {
 		int M = Integer.parseInt(st.nextToken());
 		
 		boolean[][] maze = new boolean[N+2][M+2];
-		boolean[][] visited = new boolean[N+2][M+2];
 		int[][] distance = new int[N+2][M+2];
 		
 		for (int i=0; i<N; i++) {
@@ -34,7 +33,6 @@ public class 미로탐색 {
 		Queue<Integer> queue = new LinkedList<>();
 		queue.offer(1);
 		queue.offer(1);
-		visited[1][1] = true;
 		distance[1][1] = 1;
 		
 		while (!queue.isEmpty()) {
@@ -49,10 +47,9 @@ public class 미로탐색 {
 			for (int i=0; i<4; i++) {
 				int nx = x+dx[i];
 				int ny = y+dy[i];
-				if (maze[ny][nx] && !visited[ny][nx]) {
+				if (maze[ny][nx] && distance[ny][nx] == 0) {
 					queue.offer(nx);
 					queue.offer(ny);
-					visited[ny][nx] = true;
 					distance[ny][nx] = distance[y][x] + 1;
 				}
 				

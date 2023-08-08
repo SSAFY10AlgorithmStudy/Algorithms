@@ -10,6 +10,7 @@ public class DFS와BFS {
 	private static boolean bfsVisited[];
 	private static boolean dfsVisited[];
 	private static Map<Integer, List<Integer>> graph;
+	private static int[] graph2 = new int[1000];
 	private static int start;
 
 	public static void main(String[] args) throws Exception {
@@ -17,7 +18,6 @@ public class DFS와BFS {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		StringBuilder sb = new StringBuilder();
 
 		int N = Integer.parseInt(st.nextToken());
 		int M = Integer.parseInt(st.nextToken());
@@ -27,6 +27,7 @@ public class DFS와BFS {
 		dfsVisited = new boolean[N+1];
 		
 		graph = new HashMap<>();
+
 		for (int i=0; i<M; i++) {
 			st = new StringTokenizer(br.readLine());
 			int n1 = Integer.parseInt(st.nextToken());
@@ -38,9 +39,11 @@ public class DFS와BFS {
 				graph.put(n2,  new ArrayList<Integer>());
 			}
 			graph.get(n1).add(n2);
-			Collections.sort(graph.get(n1));
 			graph.get(n2).add(n1);
-			Collections.sort(graph.get(n2));
+		}
+
+		for (int gk: graph.keySet()) {
+			Collections.sort(graph.get(gk));
 		}
 		
 		dfs(start);
@@ -70,6 +73,7 @@ public class DFS와BFS {
 		Queue<Integer> queue = new LinkedList<>();
 		queue.offer(start);
 		bfsVisited[start] = true;
+		
 		while(!queue.isEmpty()) {
 			int cur = queue.poll();
 			System.out.printf(cur + " ");
