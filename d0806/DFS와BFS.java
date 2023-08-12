@@ -10,7 +10,6 @@ public class DFS와BFS {
 	private static boolean bfsVisited[];
 	private static boolean dfsVisited[];
 	private static Map<Integer, List<Integer>> graph;
-	private static int[] graph2 = new int[1000];
 	private static int start;
 
 	public static void main(String[] args) throws Exception {

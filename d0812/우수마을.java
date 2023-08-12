@@ -1,12 +1,17 @@
 // https://www.acmicpc.net/problem/1949
 
+package d0812;
+
 import java.io.*;
 import java.util.*;
 
-public class Main {
+
+// memory 22192, time 208ms
+public class 우수마을 {
 
     private static HashMap<Integer, List<Integer>> graph = new HashMap<>();
     private static int[][] memo;
+    private static int[] people;
     private static boolean[] visited;
     private static int n;
 	
@@ -17,13 +22,16 @@ public class Main {
         StringTokenizer st = null;
 
         n = Integer.parseInt(br.readLine());
+        people = new int[n+1];
         visited = new boolean[n+1];
         memo = new int[n+1][2];
 
+        // 도시 인구수 저장
+        st = new StringTokenizer(br.readLine());
         for (int i=1; i<=n; i++) {
+            people[i] = Integer.parseInt(st.nextToken());
             graph.put(i, new ArrayList<Integer>());
         }
-
 
         // 트리 저장
         for (int i=1; i<n; i++) {
@@ -36,8 +44,8 @@ public class Main {
         }
 
         dfs(1);
-        // System.out.println(Arrays.deepToString(memo));
-        System.out.println(Math.min(memo[1][0], memo[1][1]));
+        System.out.println(Arrays.deepToString(memo));
+        System.out.println(Math.max(memo[1][0], memo[1][1]));
         
     }
 
@@ -45,15 +53,15 @@ public class Main {
         List<Integer> next = graph.get(cur);
         visited[cur] = true;
 
-        for (int friend: next) {
-            if (!visited[friend]) {
-                dfs(friend); // cur -> 1, friend -> 2
-    
-                memo[cur][0] += Math.min(memo[friend][0], memo[friend][1]); // ea
-                memo[cur][1] += memo[friend][0]; // nea
+        for (int city: next) {
+            if (!visited[city]) {
+                dfs(city);
+
+                memo[cur][0] += memo[city][1]; // 선택
+                memo[cur][1] += Math.max(memo[city][0], memo[city][1]); // 미선택
             }
         }
-        memo[cur][0] += 1; // cur 이 ea 인 경우 한명 추가
+        memo[cur][0] += people[cur];
     }
 	
 }
