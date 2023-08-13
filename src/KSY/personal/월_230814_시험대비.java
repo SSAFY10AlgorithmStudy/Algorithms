@@ -15,7 +15,6 @@ public class 월_230814_시험대비 {
 	        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	        BufferedWriter wr = new BufferedWriter(new OutputStreamWriter(System.out));
 	        
-
 	        input = br.readLine().split(" "); // 학생들
 	        T = Integer.parseInt(br.readLine().trim());
 
@@ -53,8 +52,6 @@ public class 월_230814_시험대비 {
 	            wr.write(sb.toString());
 	            wr.flush();
 	        }
-
-	        
 
 	    }
 
@@ -138,21 +135,17 @@ public class 월_230814_시험대비 {
 	    
 	    
 	    /////////////////////
-	    private static void M5_노래부를팀만들기_부분집합() {        
+	    private static void M5_노래부를팀만들기_부분집합() {
 	        for (int i = 0; i < (1<<N); i++) {
 	            for (int j = 0; j < N; j++) {
 	                if((i & (1<<j)) !=0) {
 	                    ++totalCnt;
-	                    //sb.append(input[j]).append(" ");
+	                    sb.append(input[j]).append(" ");
 	                }
 	            }
-	            //sb.append("\n");
+	            sb.append("\n");
 	        }
 	    }
-	    
-	    
-	    
-	    
 	    
 	    
 	    private static boolean NP(int[] p) {        

@@ -18,7 +18,6 @@ public class S1068 { // 트리
 			graph.put(v, new ArrayList<>());
 		}
 		
-//		st = new StringTokenizer(br.readLine());
 		int rootNode=0;
 		for(int v=0; v<N; v++) {
 			int parent = Integer.parseInt(st.nextToken());
@@ -30,9 +29,6 @@ public class S1068 { // 트리
 		
 		removeNode = Integer.parseInt(br.readLine());  //지울 노드 
 		DFS(rootNode);
-//		for(int i=0; i<N; i++) {
-//			System.out.println(graph.get(i).toString());
-//		}
 		
 		System.out.println(answer);
 
