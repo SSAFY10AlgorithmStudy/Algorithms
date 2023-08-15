@@ -1,9 +1,10 @@
 // https://www.acmicpc.net/problem/2847
 
-import java.io.*;
-import java.util.*;
+package d0815;
 
-public class Main {
+import java.io.*;
+
+public class 게임을만든동준이 {
 
     static int[] cookies;
     static int left, right, c;
