@@ -1,4 +1,4 @@
-package KSY.personal;
+package KSY.personal.AlgoURa;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Iterator;
