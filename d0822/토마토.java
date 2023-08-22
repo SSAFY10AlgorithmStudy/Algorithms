@@ -1,9 +1,9 @@
-// https://www.acmicpc.net/problem/2847
+// https://www.acmicpc.net/problem/7576
 
 import java.io.*;
 import java.util.*;
 
-public class Main {
+public class 토마토 {
 
     static int m, n;
     static int[][] map;
