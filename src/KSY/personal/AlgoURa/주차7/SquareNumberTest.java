@@ -1,4 +1,4 @@
-package KSY.personal.AlgoURa;
+package KSY.personal.AlgoURa.주차7;
 import java.util.Scanner;
 
 public class SquareNumberTest {

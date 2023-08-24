@@ -1,3 +1,5 @@
+package KSY.personal.AlgoURa.주차7;
+
 import java.util.Scanner;
 
 // 같은 행에는 퀀을 놓지 않는 버전

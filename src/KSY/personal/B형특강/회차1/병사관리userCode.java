@@ -4,30 +4,25 @@ import java.util.*;
 
 public class 병사관리userCode {
 	
-	private List<int[]> Soldiers;  // id -> team, score
+	private Set<Soldier> Soldiers;  // id -> team, score
 
 	public void init()
 	{
-		Soldiers = new LinkedList<>();  // 병사관리 리스트
+		Soldiers = new HashSet<>();  // 병사관리 리스트 생성 
 	}
 	
 	public void hire(int mID, int mTeam, int mScore)
 	{
-		for(int[] soldier : Soldiers) {
-			if(soldier[0] == mID) {
-				return; // 이미 있는 병사
-			}
-		}
-		Soldiers.add(new int[] {mID, mTeam, mScore});
-		System.out.println(mID + "병사 추가");
+		Soldiers.add(new Soldier(mID, mTeam, mScore));
+		//System.out.println(mID + "병사 추가");
 	}
 	
 	public void fire(int mID)
 	{
-		for(int[] soldier : Soldiers) {
-			if(soldier[0] == mID) {
+		for(Soldier soldier : Soldiers) {
+			if(soldier.mID == mID) {
 				Soldiers.remove(soldier);
-				System.out.println(mID + "병사 제거");
+				//System.out.println(mID + "병사 제거");
 				return;
 			}
 		}
@@ -36,15 +31,39 @@ public class 병사관리userCode {
 
 	public void updateSoldier(int mID, int mScore)
 	{
+		for(Soldier soldier: Soldiers) {
+			if(soldier.mID == mID) {
+				soldier.mScore = mScore;
+				break;
+			}
+		}
 	}
 
 	public void updateTeam(int mTeam, int mChangeScore)
 	{
+		for(Soldier soldier: Soldiers) {
+			if(soldier.mTeam == mTeam) {
+				if(soldier.mScore + mChangeScore > 5)
+					soldier.mScore = 5;
+				else if(soldier.mScore + mChangeScore < 1)
+					soldier.mScore = 1;
+				else
+					soldier.mScore = soldier.mScore + mChangeScore;
+			}
+		}
 	}
 	
 	public int bestSoldier(int mTeam)
 	{
-		return 0;
+		int maxTeamValue = 0, theID=0;
+		for(Soldier soldier: Soldiers) {
+			if(soldier.mScore > maxTeamValue) {
+				theID = soldier.mID;
+				maxTeamValue = soldier.mScore;
+			}
+			
+		}
+		return theID;
 	}
 	
 	class soldier{
@@ -71,4 +90,20 @@ public class 병사관리userCode {
 		}
 	}
 
+}
+
+class Soldier {
+	int mID, mTeam, mScore;
+	Soldier(int mID, int mTeam, int mScore){
+		this.mID = mID; this.mTeam = mTeam; this.mScore = mScore;
+	}
+	@Override
+	public int hashCode() {
+		return mID;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		return mID == ((Soldier)obj).mID;
+	}
+	
 }

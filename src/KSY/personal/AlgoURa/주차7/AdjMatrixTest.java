@@ -1,5 +1,7 @@
-package KSY.personal.AlgoURa;
+package KSY.personal.AlgoURa.주차7;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Queue;
@@ -8,7 +10,7 @@ import java.util.Scanner;
 //무향 그래프 
 public class AdjMatrixTest {
 	
-	//Node
+	//Node(인접 리스트)
 	static class Node{
 		int vertext;
 		Node next;
@@ -24,12 +26,13 @@ public class AdjMatrixTest {
 		}
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
+		System.setIn(new FileInputStream("graph_input2.txt"));
 		Scanner sc = new Scanner(System.in);
 		int V = sc.nextInt();
 		int E = sc.nextInt();
 		
-		Node adjList[] = new Node[V];  // 헤드리스
+		Node adjList[] = new Node[V];  // 헤드리스트 
 		
 		int[][] adjMatrix = new int[V][V];  // 초기값 0
 		// 간선 있으면 1, 없으면 0
@@ -56,6 +59,7 @@ public class AdjMatrixTest {
 		bfs(adjList);
 	}
 	
+	// 인접 행렬 
 	private static void bfs(int[][] adjMatrix) {
 		int size = adjMatrix.length;
 		Queue<Integer> que = new ArrayDeque<>();  // 큐에 넣는 값은 방문대상을 관리할 값과 그밖의 값들이 될 수 있다.
@@ -81,6 +85,7 @@ public class AdjMatrixTest {
 		
 	}
 	
+	// 인접 리스트 
 	private static void bfs(Node adjList[]) {
 		int size = adjList.length;
 		Queue<Integer> que = new ArrayDeque<>();  // 큐에 넣는 값은 방문대상을 관리할 값과 그밖의 값들이 될 수 있다.
