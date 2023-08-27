@@ -1,4 +1,4 @@
-package KSY.personal.B형특강.회차1;
+package KSY.personal.B형특강.회차2;
 
 import java.util.*;
 
