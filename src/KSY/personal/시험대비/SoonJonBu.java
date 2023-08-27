@@ -1,4 +1,4 @@
-package KSY.personal;
+package KSY.personal.시험대비;
 
 import java.io.IOException;
 import java.util.Arrays;
