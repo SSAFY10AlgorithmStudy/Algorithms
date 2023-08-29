@@ -2,7 +2,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 
-public class S_9095 {
+public class S_14501 {
     static int N,answer;
     static int data[][];
     static int day[],profit[];
