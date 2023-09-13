@@ -43,8 +43,8 @@ public class S11723_집합 {
 					}
 					break;
 				case "all":
-					for(int n=1; n<=2; n++) {
-						set.add(i);
+					for(int n=1; n<=20; n++) {
+						set.add(n);
 					}
 					break;
 				case "empty":
