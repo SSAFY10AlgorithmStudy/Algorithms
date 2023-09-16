@@ -1,4 +1,4 @@
-package KSY.personal.Prectice;
+package KSY.personal.Practice;
 
 import java.io.*;
 import java.util.*;
