@@ -2,49 +2,31 @@ import java.io.*;
 import java.util.*;
 
 public class Solution {
-
-
     public static void main(String[] args) throws Exception {
 
         System.setIn(new FileInputStream("input.txt"));
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); // 빠른 읽기
+        StringTokenizer st = null;
         StringBuilder sb = new StringBuilder();
 
-        String s = br.readLine();
+        int t = Integer.parseInt(br.readLine());
 
-        while (s != null) {
-            int n = s.length();
-            Stack<Character> stack = new Stack<>();
-            boolean match = true;
-            for (int i=0; i<n; i++){
-                char ch = s.charAt(i);
-                if (ch == '(') {
-                    stack.add(ch);
-                } else if (ch == ')') {
-                    if (stack.peek() != '(') {
-                        match = false;
-                        break;
-                    }
-                    stack.pop();
-                } else if (ch == '[') {
-                    stack.add(ch);
-                } else if (ch == ']') {
-                    if (stack.peek() != '[') {
-                        match = false;
-                        break;
-                    }
-                    stack.pop();
-                }
+        for (int tc=1; tc<=t; tc++) {
+            st = new StringTokenizer(br.readLine());
+            int n = Integer.parseInt(st.nextToken());
+            int p = Integer.parseInt(st.nextToken());
+
+            int[] study = new int[n];
+            boolean[] connect = new boolean[n];
+
+            st = new StringTokenizer(br.readLine());
+            for (int i=0; i<n; i++) {
+                study[i] = Integer.parseInt(st.nextToken());
             }
-            if (!stack.isEmpty()) {
-                match = false;
-            }
-            if (match) {
-                sb.append("yes").append("\n");
-            } else {
-                sb.append("no").append("\n");
-            }
+
+            System.out.println(Arrays.toString(study));
         }
+
 
     }
 

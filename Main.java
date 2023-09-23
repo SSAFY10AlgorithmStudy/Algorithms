@@ -7,47 +7,60 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); // 빠른 읽기
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringBuilder sb = new StringBuilder();
+        StringTokenizer st = null;
 
-        String s = br.readLine();
+        int t = Integer.parseInt(br.readLine());
 
-        while (!s.equals(".")) {
-            int n = s.length();
-            Stack<Character> stack = new Stack<>();
-            boolean match = true;
-            for (int i=0; i<n; i++){
-                char ch = s.charAt(i);
-                if (ch == '(') {
-                    stack.add(ch);
-                } else if (ch == ')') {
-                    if (stack.isEmpty() || stack.peek() != '(') {
-                        match = false;
-                        break;
+        for (int tc=0; tc<t; tc++) {
+            int k = Integer.parseInt(br.readLine());
+            PriorityQueue<Long> minHeap = new PriorityQueue<>();
+            PriorityQueue<Long> maxHeap = new PriorityQueue<>(Comparator.reverseOrder());
+            Map<Long, Integer> counter = new HashMap<>();
+
+            for (int qr=0; qr<k; qr++) {
+                st = new StringTokenizer(br.readLine());
+                String action = st.nextToken();
+                long n = Long.parseLong(st.nextToken());
+                if (action.equals("I")) { // insert
+                    counter.putIfAbsent(n, 0);
+                    counter.put(n, counter.get(n) + 1);
+                    maxHeap.offer(n);
+                    minHeap.offer(n);
+                } else if (n == 1) { // delete top
+                    while (!maxHeap.isEmpty() && counter.get(maxHeap.peek()) == 0) { // 최소힙에서 뺀 값을 버리기
+                        maxHeap.poll();
                     }
-                    stack.pop();
-                } else if (ch == '[') {
-                    stack.add(ch);
-                } else if (ch == ']') {
-                    if (stack.isEmpty() || stack.peek() != '[') {
-                        match = false;
-                        break;
+                    if (!maxHeap.isEmpty()) {
+                        long rm = maxHeap.poll();
+                        counter.put(rm, counter.get(rm) - 1);
                     }
-                    stack.pop();
+                } else { // delete bottom
+                    while (!minHeap.isEmpty() && counter.get(minHeap.peek()) == 0) { // 최대힙에서 뺀 값을 버리기
+                        minHeap.poll();
+                    }
+                    if (!minHeap.isEmpty()) {
+                        long rm = minHeap.poll();
+                        counter.put(rm, counter.get(rm) - 1);
+                    }
                 }
             }
-            if (!stack.isEmpty()) {
-                match = false;
+
+            while (!minHeap.isEmpty() && counter.get(minHeap.peek()) == 0) { // 최대힙에서 뺀 값을 버리기
+                minHeap.poll();
             }
-            if (match) {
-                sb.append("yes").append("\n");
-            } else {
-                sb.append("no").append("\n");
+            while (!maxHeap.isEmpty() && counter.get(maxHeap.peek()) == 0) { // 최소힙에서 뺀 값을 버리기
+                maxHeap.poll();
             }
-            s = br.readLine();
+
+            if (maxHeap.isEmpty() || minHeap.isEmpty()) {
+                sb.append("EMPTY").append("\n");
+                continue;
+            }
+            sb.append(maxHeap.peek()).append(" ").append(minHeap.peek()).append("\n");
         }
 
         bw.write(sb.toString());
         bw.flush();
-
     }
 
 }
