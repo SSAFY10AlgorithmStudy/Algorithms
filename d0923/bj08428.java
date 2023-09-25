@@ -1,7 +1,9 @@
+package d0923;
+
 import java.io.*;
 import java.util.*;
 
-public class Main {
+public class bj08428 {
 
     static int n;
     static int[][] map;
