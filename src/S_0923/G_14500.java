@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 //	38304kb	596ms
+//테트로미노
 public class G_14500 {
     static int N, M,answer;
     static int map[][];
@@ -21,7 +22,7 @@ public class G_14500 {
                 map[i][j] = Integer.parseInt(s[j]);
             }
         }
-
+        //맵 다 돌면서 블록 다 넣어보기 가장 큰거 정답으로 했음
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < M; j++) {
                 //5개 블록 넣어본다
