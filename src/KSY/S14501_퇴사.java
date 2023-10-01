@@ -5,7 +5,7 @@ import java.io.*;
 
 public class S14501_퇴사 {
 	static int N;
-	static int[][ metting;
+	static Node[] metting;
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -13,8 +13,8 @@ public class S14501_퇴사 {
 		StringBuilder sb = new StringBuilder();
 		
 		int N = Integer.parseInt(br.readLine());
-//		metting = new Node[N];
-		metting = 
+		metting = new Node[N];
+//		metting = 
 		for(int i=0; i<N; i++) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			Node node = new Node(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()));

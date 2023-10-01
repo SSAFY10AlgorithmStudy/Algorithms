@@ -3,13 +3,14 @@ package KSY;
 import java.io.*;
 import java.util.*;
 
+//295056KB/	876ms
+
 public class S18809_Gaaaaaaaaaarden {
 
 	static List<Cell> able = new ArrayList<>();
 	static int[] dr = new int[] { 0, 1, 0, -1 };
 	static int[] dc = new int[] { 1, 0, -1, 0 };
 	static int N, M, map[][];
-	static Set<Cell> checked = new HashSet<>();
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -21,7 +22,7 @@ public class S18809_Gaaaaaaaaaarden {
 		M = Integer.parseInt(st.nextToken());
 		int G = Integer.parseInt(st.nextToken()); // 초록 배양액
 		int R = Integer.parseInt(st.nextToken()); // 빨간 배양액
-		int river = 0, answer = 0;
+		int answer = 0;
 
 		// 0: 호수, 1: 배양액 뿌릴 수 없는 땅, 2: 배양액 뿌릴 수 있는 땅
 		map = new int[N][M];
@@ -31,12 +32,9 @@ public class S18809_Gaaaaaaaaaarden {
 				map[i][j] = Integer.parseInt(st.nextToken());
 				if (map[i][j] == 2) {
 					able.add(new Cell(i, j, 0));
-				} else if (map[i][j] == 0) {
-					river++;
 				}
 			}
 		}
-//		System.out.println("river: " + river);
 
 		int p[] = new int[able.size()];
 		int cnt = able.size() - 1;
@@ -57,33 +55,25 @@ public class S18809_Gaaaaaaaaaarden {
 			while (cnt2 >= p2.length - G)
 				p2[cnt2--] = 1;
 
-			do { // 초록색(1), 빨간색(0) 분리
+			do { // 선정된 위치 기반 초록색(1), 빨간색(0) 분리
 
 				// map 분리
 				int[][] greenmap = new int[N][M];
 				int[][] redmap = new int[N][M];
-//				Arrays.fill(greenmap, -1);
-//				Arrays.fill(redmap, -1);
-//				for (int i = 0; i < N; i++) {
-//					greenmap[i] = map[i].clone();
-//					redmap[i] = map[i].clone();
-//				}
 
-//				Queue<Cell> greenque = new ArrayDeque<>();
-//				Queue<Cell> redque = new ArrayDeque<>();
 				Queue<Cell> que = new ArrayDeque<>();
 
 				for (int i = 0; i < p2.length; i++) {
 					Cell c = able.get(selected[i]);
+					Cell newCell = null;  // 다음 상황을 위해서 객체 새로 생성
 					if (p2[i] == 1) { // 초록색이라면
 						greenmap[c.r][c.c] = -1;
-						c.color = 'g';
-						que.offer(c);
+						newCell = new Cell(c.r, c.c, c.cnt, 'g');
 					} else { // 빨강색이라면
 						redmap[c.r][c.c] = -1;
-						c.color = 'r';
-						que.offer(c);
+						newCell = new Cell(c.r, c.c, c.cnt, 'r');
 					}
+					que.offer(newCell);
 				}
 //				//tempmap 출력
 //				System.out.println("before");
@@ -96,26 +86,11 @@ public class S18809_Gaaaaaaaaaarden {
 //				}
 //				System.out.println("------");
 
-//				BFS(greenmap, greenque);
-//				BFS(redmap, redque);
-
 				int answertemp = BFS(greenmap, redmap, que);
 
-//				int answertemp = checkSameTime(greenmap, redmap);
 				if (answertemp > answer) {
 					answer = answertemp;
-					// tempmap 재출력
-					for (int i = 0; i < N; i++) {
-						System.out.println(Arrays.toString(greenmap[i]));
-					}
-					System.out.println();
-					for (int i = 0; i < N; i++) {
-						System.out.println(Arrays.toString(redmap[i]));
-					}
-					System.out.println("=======" + answertemp);
-
 				}
-//				sb.append(answer).append("\n");
 
 			} while (NP(p2));
 
@@ -127,25 +102,12 @@ public class S18809_Gaaaaaaaaaarden {
 
 	}
 
-//	public static int checkSameTime(int[][] map1, int[][] map2) { // 둘이 같은 시간에 방문한 위치 확인
-//		int cnt = 0;
-//		for (int i = 0; i < N; i++) {
-//			for (int j = 0; j < M; j++) {
-//				if (map1[i][j] != 0 && map1[i][j] == map2[i][j]) {
-//					cnt++;
-//				}
-//			}
-//		}
-//		return cnt;
-//	}
-
 	public static int BFS(int[][] greenmap, int[][] redmap, Queue<Cell> que) {
-//		int tempanswer = 0;
-		int[][] tempmap = new int[N][M];
+		int[][] tempmap = new int[N][M];  // 꽃이 피는 영역 확인용
 		while (!que.isEmpty()) { // que에 값이 있을 때까지
 			Cell curr = que.poll();
 			// 해당 cell이 이미 꽃을 피운 곳이라면 탐색 중지
-			if (checked.contains(curr))
+			if (tempmap[curr.r][curr.c] == 1)
 				continue;
 
 			for (int d = 0; d < 4; d++) {
@@ -154,10 +116,8 @@ public class S18809_Gaaaaaaaaaarden {
 				if (-1 < row && row < N && -1 < col && col < M && map[row][col] != 0) { // 범위를 벗어나지 않고 호수가 아님
 					if (curr.color == 'g') { // 초록색일 때
 						if (redmap[row][col] == curr.cnt + 1) { // 배양
-//							tempanswer++;
 							tempmap[row][col] = 1;
-							checked.add(new Cell(row, col, 0));
-						} else if (greenmap[row][col] == 0) {
+						} else if (greenmap[row][col] == 0 && redmap[row][col] == 0) {  // 방문하지 않은곳이라면 ( 3% ->
 							greenmap[row][col] = curr.cnt + 1;
 							Cell c = new Cell(row, col, curr.cnt + 1);
 							c.color = 'g';
@@ -165,10 +125,8 @@ public class S18809_Gaaaaaaaaaarden {
 						}
 					} else if (curr.color == 'r') { // 빨간색일 때
 						if (greenmap[row][col] == curr.cnt + 1) { // 배양
-//							tempanswer++;
 							tempmap[row][col] = 1;
-							checked.add(new Cell(row, col, 0));
-						} else if (redmap[row][col] == 0) {
+						} else if (redmap[row][col] == 0 && greenmap[row][col] == 0) {  // 방문하지 않은곳이라면
 							redmap[row][col] = curr.cnt + 1;
 							Cell c = new Cell(row, col, curr.cnt + 1);
 							c.color = 'r';
@@ -183,7 +141,7 @@ public class S18809_Gaaaaaaaaaarden {
 //			System.out.println(Arrays.toString(tempmap[i]));
 //		}
 
-		return flowerCnt(tempmap);
+		return flowerCnt(tempmap);  // 피워진 꽃 개수 확인
 	}
 
 	public static int flowerCnt(int[][] map) {
@@ -233,20 +191,10 @@ class Cell {
 		this.c = c;
 		this.cnt = cnt;
 	}
-
-	@Override
-	public int hashCode() {
-		int prime = 31;
-		int result = 1;
-		result = prime * result + r;
-		result = prime * result + c;
-		return result;
+	Cell(int r, int c, int cnt, char color) {
+		this.r = r;
+		this.c = c;
+		this.cnt = cnt;
+		this.color = color;
 	}
-
-	@Override
-	public boolean equals(Object obj) {
-		Cell c = (Cell) obj;
-		return hashCode() == obj.hashCode();
-	}
-
 }
