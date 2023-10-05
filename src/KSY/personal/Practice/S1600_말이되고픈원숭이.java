@@ -3,6 +3,8 @@ package KSY.personal.Practice;
 import java.util.*;
 import java.io.*;
 
+//60036KB/	512ms
+
 public class S1600_말이되고픈원숭이 {
 
 	static int[] kdr = new int[] { 1, 2, 2, 1, -1, -2, -2, -1 };
@@ -35,7 +37,7 @@ public class S1600_말이되고픈원숭이 {
 		while (!que.isEmpty()) {
 			Point curr = que.poll();
 			if (curr.r == H - 1 && curr.c == W - 1) {
-				sb.append(curr.cnt + 1);
+				sb.append(curr.cnt);
 				bw.write(sb.toString());
 				bw.flush();
 				bw.close();
@@ -47,9 +49,9 @@ public class S1600_말이되고픈원숭이 {
 					int row = curr.r + kdr[d];
 					int col = curr.c + kdc[d];
 					if (-1 < row && row < H && -1 < col && col < W && map[row][col] != 1
-							&& !visited[row][col][curr.k]) {
-						visited[row][col][curr.k] = true;
-						que.offer(new Point(row, col, curr.cnt, curr.k + 1));
+							&& !visited[row][col][curr.k+1]) {
+						visited[row][col][curr.k+1] = true;
+						que.offer(new Point(row, col, curr.cnt+1, curr.k + 1));
 					}
 				}
 			}
