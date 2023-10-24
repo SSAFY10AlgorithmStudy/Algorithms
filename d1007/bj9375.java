@@ -1,8 +1,11 @@
+package d1007;
+
 import java.io.*;
 import java.util.*;
 
-public class Main {
+public class bj9375 {
     public static void main(String[] args) throws Exception {
+        System.setIn(new FileInputStream("input.txt"));
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); // 빠른 읽기
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         StringBuilder sb = new StringBuilder();
