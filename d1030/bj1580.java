@@ -1,7 +1,9 @@
+package d1030;
+
 import java.io.*;
 import java.util.*;
 
-public class Main {
+public class bj1580 {
     static int n, m;
     static int[][] map;
     static boolean[][][][] visited;
@@ -79,9 +81,9 @@ public class Main {
 
     static boolean inRange(int r1, int c1, int r2, int c2) {
         if (r1 >= 0 && c1 >= 0 && r2 >= 0 && c2 >= 0
-            && r1 < n && r2 < n && c1 < m && c2 < m
-            && map[r1][c1] == 0 && map[r2][c2] == 0
-            && !visited[r1][c1][r2][c2]) return true;
+                && r1 < n && r2 < n && c1 < m && c2 < m
+                && map[r1][c1] == 0 && map[r2][c2] == 0
+                && !visited[r1][c1][r2][c2]) return true;
         return false;
     }
 
