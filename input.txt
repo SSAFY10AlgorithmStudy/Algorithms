@@ -1,10 +1,15 @@
-2
-3
-hat headgear
-sunglasses eyewear
-turban headgear
-3
-mask face
-sunglasses face
-makeup face
->>>>>>> a84b6d310be4da236d4ed69b881bb69533de1a9c
+10 4
+75
+30
+100
+38
+50
+51
+52
+20
+81
+5
+1 10
+3 5
+6 9
+8 10
