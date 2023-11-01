@@ -72,8 +72,12 @@ public class bj2357 {
     }
 
     static Node findSeg(int left, int right, int node, int segLeft, int segRight) {
+        // 범위 밖일때 무시하기
         if (left > segRight || right < segLeft) return new Node(Integer.MAX_VALUE, 0);
+        // 양쪽이 전부 범위 안에 들때
         if (left >= segLeft && right <= segRight) return tree[node];
+
+        // 나눠서 재귀적으로 찾기
         int mid = (left + right) / 2;
         Node l = findSeg(left, mid, node*2, segLeft, segRight);
         Node r = findSeg(mid+1, right, node*2+1, segLeft, segRight);

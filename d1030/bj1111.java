@@ -29,12 +29,14 @@ public class bj1111 {
             return;
         }
 
+        // a 곱을 찾기 위해
         int d1 = arr[1] - arr[0];
         int d2 = arr[2] - arr[1];
-        int a = 0;
+        int a = 0; // 곱하는값
         if (d1 != 0) {
             a = d2/d1;
         }
+        // b = ax - y
         int b = arr[1] - arr[0] * a;
 
         for (int i=2; i<arr.length; i++) {
@@ -43,7 +45,7 @@ public class bj1111 {
                 return;
             }
         }
-
+        // y = ax + b
         System.out.println(arr[arr.length-1]*a + b);
 
 
