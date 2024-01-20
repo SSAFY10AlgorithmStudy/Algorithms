@@ -53,8 +53,6 @@ public class S16928_뱀과사다리게임 {
 			for (int d = 1; d <= 6; d++) {
 				if (curr.pos + d < 101) {
 					if (curr.cnt + 1 < map[curr.pos + d]) {
-//						boolean flag = false;
-//						que.offer(new Pos(curr.cnt + 1, curr.pos + d));
 						int point = curr.pos + d;
 						Pos pos = new Pos(curr.cnt + 1, point);
 
@@ -62,16 +60,10 @@ public class S16928_뱀과사다리게임 {
 						int snack = snacks[curr.pos + d];
 
 						if (ladder != 0) { // 사다리가 있다면
-//							map[ladder] = curr.cnt + 1;
-//							que.offer(new Pos(curr.cnt + 1, ladder));
-//							flag = true;
 							point = ladder;
 						}
 
 						if (snack != 0) { // 뱀이 있다면 (else-if -> if : 12% -> 22%)
-//							map[snack] = curr.cnt + 1;
-//							que.offer(new Pos(curr.cnt + 1, snack));
-//							flag = true;
 							point = snack;
 						}
 						
